@@ -1,12 +1,11 @@
 import React from "react";
-import { LoginPageContainer } from "../../styles/LoginPage";
-import LoginForm from "../../components/form/index";
-import { loginTheme } from "../../styles/colors";
+import { LoginPageContainer } from "../../styles/Backgrounds";
+import LoginForm from "../../components/forms/loginForm";
+import { loginAndRegisterTheme } from "../../styles/colors";
 import { Grid, Box } from "@material-ui/core";
-import { LogoContainer } from "./logoContainer";
-import { Header } from "../../styles/h2";
-import Logo from "../../components/logo";
-import srcLogo from "../../assets/punctuality2.png";
+import LogoContainer from "../../components/logoContainer";
+
+
 
 const LoginPage = () => {
   return (
@@ -15,20 +14,13 @@ const LoginPage = () => {
         <Grid container item md={5}>
           <Grid item xs={12}>
             <Box
-              bgcolor={loginTheme}
+              bgcolor={loginAndRegisterTheme}
               height={1}
               display="flex"
               flexDirection="column"
               justifyContent="center"
             >
-              <LogoContainer>
-                <Logo src={srcLogo} />
-                <Header>
-                  Welcome
-                  <br /> in <br />
-                </Header>
-                <Header width="100%">HappitsChanger.com</Header>
-              </LogoContainer>
+              <LogoContainer />
               <LoginForm />
             </Box>
           </Grid>
