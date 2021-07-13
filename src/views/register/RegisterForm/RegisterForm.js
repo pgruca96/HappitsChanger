@@ -1,11 +1,15 @@
-import React, { useState, useRef} from "react";
+import React from "react";
 import FormControl from '@material-ui/core/FormControl';
 import TextField from "@material-ui/core/TextField";
 import styled from 'styled-components';
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { createUser } from "../../../services/firebase";
+import { useHistory } from "react-router-dom"
+import { returnErrorMessage, emailValidate } from "../../../utils/helpers/validation.helpers"
+
 
 const FormTextField = styled(TextField)`
   && {
@@ -18,32 +22,11 @@ const FormButton = styled(Button)`
   }
 `
 
-const RegisterForm = () => {
-  const [formValues, setFormValues] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    repeatPassword: ""
-  })
+const RegisterForm = ({isEmailExist}) => {
+  const { register, handleSubmit, formState: { errors }, watch  } = useForm();
+  const history = useHistory();
 
-  const { register, handleSubmit, formState: { errors }, watch, control  } = useForm();
-  const password = useRef({});
-  password.current = watch("password", "");
-
-  const handleChangeFieldText = (e) => setFormValues({...formValues, [e.target.name]: e.target.value});
-
-  const onSubmit = values => console.log(values);
-  const returnErrorMessage = (handle) => {
-    if(errors[`${handle}`].type === "required") return `${handle} is required!`;
-    if(errors[`${handle}`].type === "minLength") return `${handle} is too short!`;
-    if(errors[`${handle}`].type === "maxLength") return `${handle} is too long!`;
-    if(errors[`${handle}`].type === "pattern") return`"${handle} is not correct!`;
-    if(errors[`${handle}`].type === "validate" && handle === "confirmedCheckbox") return `This checkbox is required!`;
-    if(errors[`${handle}`].type === "validate") return `Passwords is not the same!`;
-  }
-
-  const emailValidate = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+  const onSubmit = async (values) => await createUser(values.Email, values.Password).then(() => history.push("/"));
 
   return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -57,7 +40,6 @@ const RegisterForm = () => {
                 variant="outlined"
                 autoComplete="fname"
                 autoFocus
-                onChange={handleChangeFieldText}
                 {...register("Firstname", 
                   { 
                     required: true,
@@ -65,9 +47,9 @@ const RegisterForm = () => {
                     maxLength: 20,
                     pattern: /[a-zA-Z]+$/
                   })
-                }
+                }                           
                 error={errors.Firstname}
-                helperText={errors.Firstname && returnErrorMessage("Firstname")}
+                helperText={errors.Firstname && returnErrorMessage(errors, "Firstname")}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,7 +60,6 @@ const RegisterForm = () => {
                 placement="top"
                 variant="outlined"
                 autoComplete="lname"
-                onChange={handleChangeFieldText}
                 {...register("Lastname", 
                   { 
                     required: true,
@@ -88,18 +69,16 @@ const RegisterForm = () => {
                   })
                 }
                 error={errors.Lastname}
-                helperText={errors.Lastname && returnErrorMessage("Lastname")}
+                helperText={errors.Lastname && returnErrorMessage(errors,"Lastname")}
               />
             </Grid>
             <Grid item xs={12}>      
               <FormTextField
-                id="emal"
+                id="email"
                 name="email"
-                // inputRef={register()}
                 label="Email address*"
                 variant="outlined"
                 autoComplete="email adress"
-                onChange={handleChangeFieldText}
                 {...register("Email", 
                   { 
                     required: true,
@@ -107,7 +86,7 @@ const RegisterForm = () => {
                   })
                 }
                 error={errors.Email}
-                helperText={errors.Email && returnErrorMessage("Email")}
+                helperText={(errors.Email && returnErrorMessage(errors,"Email")) || (isEmailExist && returnErrorMessage(errors,"isExist"))}
               />
             </Grid> 
             <Grid item xs={12}>
@@ -118,16 +97,15 @@ const RegisterForm = () => {
                 variant="outlined"
                 type="password"
                 autoComplete="current-password"
-                onChange={handleChangeFieldText}
                 {...register("Password", 
                   { 
                     required: true,
                     minLength: 8,
                     maxLength: 20,
                   })
-                }
+                }                
                 error={errors.Password}
-                helperText={errors.Password && returnErrorMessage("Password")}
+                helperText={errors.Password && returnErrorMessage(errors,"Password")}
               />
             </Grid>
             <Grid item xs={12}>
@@ -139,15 +117,14 @@ const RegisterForm = () => {
                 variant="outlined"
                 type="password"
                 autoComplete="repeat-password"
-                onChange={handleChangeFieldText}
                 {...register("repeatPassword", 
                   { 
                     required: true,
                     validate: value => value === watch("Password")
                   })
-                }
+                }               
                 error={errors.repeatPassword}
-                helperText={errors.repeatPassword && returnErrorMessage("repeatPassword")}
+                helperText={errors.repeatPassword && returnErrorMessage(errors,"repeatPassword")}
               />
             </Grid>
             <Grid item xs={12}>
@@ -163,7 +140,7 @@ const RegisterForm = () => {
                   />
                   I want to receive inspiration, marketing promotions and updates via email.
                 </label>
-              {<FormHelperText>{errors.confirmedCheckbox && returnErrorMessage("confirmedCheckbox")}</FormHelperText>}
+              {<FormHelperText>{errors.confirmedCheckbox && returnErrorMessage(errors,"confirmedCheckbox")}</FormHelperText>}
               </FormControl>
               {/* <FormControl 
                 error={errors.confirmedCheckbox}

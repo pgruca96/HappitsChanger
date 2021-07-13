@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 const Logo = ({ src }) => {
   const Img = styled.img`
-    min-height: 100px;
-    height: 80%;
+    width: 120px;
     color: white;
+    @media (max-width: 960px) {
+      width: 100px
+    }
   `;
   return <Img src={src} alt="logo" />;
 };

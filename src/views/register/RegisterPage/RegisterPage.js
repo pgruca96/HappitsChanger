@@ -1,17 +1,14 @@
 import React from "react";
-import { RegisterPageContainer } from "../../styles/Backgrounds";
-import RegisterForm from "../../components/forms/registerForm";
-import LogoContainer from "../../components/logoContainer";
+import { RegisterPageContainer } from "../../../utils/helpers/styles/Backgrounds";
+import RegisterForm from "../RegisterForm/RegisterForm";
+import LogoContainer from "../../../components/logo/logoContainer";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from "@material-ui/core";
 import { useMediaQuery } from "@material-ui/core";
 
-
-
-
 const useStyles = makeStyles(() => ({
   root: {
-    minHeight: '100vh'
+    minHeight: '100vh',
   },
   gridItemLogoXS: {
     display: "flex",
@@ -20,11 +17,15 @@ const useStyles = makeStyles(() => ({
     marginBottom: "clamp(20px, 5%, 50px)"
   },
   gridItemLogo: {
-    marginTop: "15%"
+    padding: "40px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   gridItemForm: {
-    marginTop: "15%",
-    padding: "40px"
+    padding: "40px",
+    display: "flex",
+    alignItems: "center",
   }
 }));
 

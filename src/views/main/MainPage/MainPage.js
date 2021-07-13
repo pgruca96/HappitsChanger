@@ -24,11 +24,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import Logo from "../../components/logo";
-import srcLogo from "../../assets/punctuality.png";
-import { primaryTheme, secondaryTheme } from "../../styles/colors";
+import Logo from "../../../components/logo/logo";
+import srcLogo from "../../../assets/punctuality2.png";
+import { primaryTheme, secondaryTheme } from "../../../utils/constants/colors";
 import { NavLink } from "react-router-dom";
-import MainRoutes from "./mainRoutes";
+import MainRoutes from "../mainRoutes";
 
 const drawerWidth = 240;
 

@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from "./containers/loginPage";
-import MainPage from "./containers/mainPage";
-import RegisterPage from "./containers/registerPage";
+import LoginPage from "./views/login/LoginPage/LoginPage";
+import MainPage from "./views/main/MainPage/MainPage";
+import RegisterPage from "./views/register/RegisterPage/RegisterPage";
 
 const App = () => {
   return (

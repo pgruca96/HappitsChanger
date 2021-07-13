@@ -1,11 +1,9 @@
 import React from "react";
-import { LoginPageContainer } from "../../styles/Backgrounds";
-import LoginForm from "../../components/forms/loginForm";
-import { loginAndRegisterTheme } from "../../styles/colors";
+import { LoginPageContainer } from "../../../utils/helpers/styles/Backgrounds";
+import LoginForm from "../LoginForm/LoginForm";
+import { loginAndRegisterTheme } from "../../../utils/constants/colors";
 import { Grid, Box } from "@material-ui/core";
-import LogoContainer from "../../components/logoContainer";
-
-
+import LogoContainer from "../../../components/logo/logoContainer";
 
 const LoginPage = () => {
   return (

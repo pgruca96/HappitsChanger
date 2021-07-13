@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import background from "../assets/login-background.jpg";
-import { loginAndRegisterTheme } from "./colors";
+import background from "../../../assets/login-background.jpg";
+import { loginAndRegisterTheme } from "../../constants/colors";
 
 export const LoginPageContainer = styled.div`
   display: flex;
