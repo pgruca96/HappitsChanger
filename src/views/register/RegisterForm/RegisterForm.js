@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { useForm } from "react-hook-form";
-import { createUser } from "../../../services/firebase";
+import { createUser } from "../../../services/firebase.auth";
 import { useHistory } from "react-router-dom"
 import { returnErrorMessage, emailValidate } from "../../../utils/helpers/validation.helpers"
 

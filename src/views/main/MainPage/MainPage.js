@@ -167,7 +167,7 @@ export default function MainPage() {
           >
             <MenuIcon />
           </IconButton>
-          <Logo src={srcLogo} />
+          <Logo src={srcLogo} width="50px"/>
           <Typography variant="h2" className={classes.h2}>
             HappitsChanger
           </Typography>

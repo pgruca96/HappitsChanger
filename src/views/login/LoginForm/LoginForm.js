@@ -5,7 +5,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "../../../utils/helpers/styles";
-import { signInUser } from "../../../services/firebase";
+import { signInUser } from "../../../services/firebase.auth";
 import { useHistory } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { returnErrorMessage, emailValidate } from "../../../utils/helpers/validation.helpers"
