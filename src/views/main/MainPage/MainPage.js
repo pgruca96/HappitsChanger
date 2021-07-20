@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
@@ -10,6 +11,7 @@ import {
   Divider,
   IconButton,
   List,
+  Button
 } from "@material-ui/core";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActiveRounded";
 import SettingsIcon from "@material-ui/icons/SettingsRounded";
@@ -27,8 +29,10 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Logo from "../../../components/logo/logo";
 import srcLogo from "../../../assets/punctuality2.png";
 import { primaryTheme, secondaryTheme } from "../../../utils/constants/colors";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import MainRoutes from "../mainRoutes";
+import { logOut } from "../../../store/actions/auth";
+import { useHistory } from "react-router-dom"
 
 const drawerWidth = 240;
 
@@ -109,9 +113,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MainPage() {
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,6 +126,8 @@ export default function MainPage() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogOut = () => dispatch(logOut()).then(history.push("/"));
 
   const prepareURL = (text) => {
     if (text === "Habits list") return "/main/habits";
@@ -171,6 +179,7 @@ export default function MainPage() {
           <Typography variant="h2" className={classes.h2}>
             HappitsChanger
           </Typography>
+          <Button onClick={handleLogOut}>Log out</Button>
         </Toolbar>
       </AppBar>
       <Drawer

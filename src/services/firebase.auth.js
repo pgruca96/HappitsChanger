@@ -21,10 +21,13 @@ const sendVerificationEmail = () => {
       .catch((error) => console.log(error.code))
 }
 
-export const signInUser = (email, password) => {
-  return auth.signInWithEmailAndPassword(email, password)
+export const signInUser = (email, password) =>
+  auth.signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
-    var user = userCredential.user;
+    console.log(userCredential.user)
+    const user = userCredential.user;
+    const { email, displayName, phoneNumber, photoURL, refreshToken } = user;
+    localStorage.setItem("user", JSON.stringify(user))
     return user;
   })
   .catch((error) => {
@@ -32,5 +35,15 @@ export const signInUser = (email, password) => {
     var errorMessage = error.message;
     console.log(errorMessage);
     console.log(errorCode);
+    return Promise.reject();
   });
-}
+
+export const signOutUser = () => 
+  auth.signOut()
+  .then(() => localStorage.removeItem("user"))
+  .catch(error => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      console.log(errorCode);
+  })
