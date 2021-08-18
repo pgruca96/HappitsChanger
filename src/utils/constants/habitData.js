@@ -31,3 +31,20 @@ export const habitCategories = [
     icon: () => <AddCircleTwoToneIcon />,
   },
 ];
+
+export const habitDefaultFrequences = [
+  { name: 'Everyday' },
+  { name: 'Every other day' },
+  { name: 'Every third day' },
+  { name: 'Everyday without weekends' },
+  { name: 'Custom choices' },
+];
+
+export const habitTimeOfClasses = [
+  "30min",
+  "45min",
+  "60min",
+  "90min",
+  "120min",
+];
+

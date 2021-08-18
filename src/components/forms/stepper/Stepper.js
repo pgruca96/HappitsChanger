@@ -6,12 +6,18 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import { habitStepperSteps } from '../../../utils/constants/habitStepperSteps';
-import { useStyles, ColorlibConnector, useColorlibStepIconStyles } from "./Stepper.styles";
+import {
+  useStyles,
+  ColorlibConnector,
+  useColorlibStepIconStyles,
+} from './Stepper.styles';
 
 const ColorlibStepIcon = ({ active, completed, icon }) => {
   const classes = useColorlibStepIconStyles();
   const icons = {};
-  habitStepperSteps.forEach(({icon}, index) => icons[`${index+1}`] = icon);
+  habitStepperSteps.forEach(
+    ({ icon }, index) => (icons[`${index + 1}`] = icon)
+  );
 
   return (
     <div
@@ -23,7 +29,7 @@ const ColorlibStepIcon = ({ active, completed, icon }) => {
       {icons[String(icon)]}
     </div>
   );
-}
+};
 
 ColorlibStepIcon.propTypes = {
   active: PropTypes.bool,
@@ -36,6 +42,7 @@ const CustomizedStepper = ({
   next,
   back,
   reset,
+  submit,
 }) => {
   const classes = useStyles();
 
@@ -46,22 +53,36 @@ const CustomizedStepper = ({
         activeStep={activeStep}
         connector={<ColorlibConnector />}
       >
-        {steps.map(({label}) => (
+        {steps.map(({ label }) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
       <div className={classes.actionsButtons}>
-        <Button variant="contained" onClick={reset}>
-          Reset habit
-        </Button>
-        <Button variant="contained" onClick={next} color="primary">
-          Next step
-        </Button>
+        <div className={classes.resetAndBackButtonContainer}>
+          <Button variant="contained" onClick={reset}>
+            Reset habit
+          </Button>
+          <div className={classes.marginBetweenButtons}></div>
+          {activeStep !== 0 && (
+            <Button variant="contained" onClick={back}>
+              Back
+            </Button>
+          )}
+        </div>
+        {activeStep !== 3 ? (
+          <Button variant="contained" onClick={next} color="primary">
+            Next step
+          </Button>
+        ) : (
+          <Button variant="contained" onClick={submit} color="primary">
+            Submit habit
+          </Button>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default CustomizedStepper;

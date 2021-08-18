@@ -16,6 +16,6 @@ export const useStyles = makeStyles(() => ({
 }));
 
 export const HabitForm = styled.form`
-  width: 50%;
+  width: 60%;
   min-width: 250px;
 `;
